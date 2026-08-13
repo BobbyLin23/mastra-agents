@@ -14,9 +14,17 @@
     "@hono/trpc-server": "^0.4.2",
     "@mastra-agents/api": "workspace:*",
     "@mastra-agents/env": "workspace:*",
+    "@mastra/core": "^1.58.0",
+    "@mastra/duckdb": "^1.6.1",
+    "@mastra/hono": "^1.6.0",
+    "@mastra/libsql": "^1.20.0",
+    "@mastra/loggers": "^1.2.0",
+    "@mastra/memory": "^1.26.1",
+    "@mastra/observability": "^1.16.6",
     "@trpc/server": "catalog:",
     "dotenv": "catalog:",
     "hono": "catalog:",
+    "mastra": "^1.24.0",
     "zod": "catalog:"
   },
   "devDependencies": {

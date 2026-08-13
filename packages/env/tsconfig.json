@@ -1,0 +1,3 @@
+{
+  "extends": "@mastra-agents/config/tsconfig.base.json"
+}

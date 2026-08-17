@@ -1,4 +1,8 @@
 import { router } from "../index";
 
-export const appRouter = router({});
+import { agentsRouter } from "./agents";
+
+export const appRouter = router({
+	agents: agentsRouter,
+});
 export type AppRouter = typeof appRouter;

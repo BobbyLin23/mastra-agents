@@ -12,6 +12,7 @@
   "scripts": {},
   "dependencies": {
     "@mastra-agents/env": "workspace:*",
+    "@mastra/core": "^1.58.0",
     "@trpc/client": "catalog:",
     "@trpc/server": "catalog:",
     "dotenv": "catalog:",

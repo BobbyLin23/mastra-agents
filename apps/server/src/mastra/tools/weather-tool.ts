@@ -35,7 +35,8 @@ export const weatherTool = createTool({
 		conditions: z.string(),
 		location: z.string(),
 	}),
-	execute: async (inputData) => {
+	execute: async (inputData, context) => {
+		context.mastra?.getLogger()?.info(`Fetching weather for ${inputData.location}`);
 		return await getWeather(inputData.location);
 	},
 });

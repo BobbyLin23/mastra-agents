@@ -23,16 +23,24 @@ const server = new MastraServer({
 	mastra,
 });
 
-await server.init();
-
+// Register middleware before server.init() so that it also applies to the
+// /api/* routes that init() registers on the app. Hono matches handlers in
+// registration order, so CORS registered after init() would be skipped for
+// those routes.
 app.use(logger());
 app.use(
 	"/*",
 	cors({
 		origin: env.CORS_ORIGIN,
 		allowMethods: ["GET", "POST", "OPTIONS"],
+		// Mastra Studio sends its API requests with credentials (cookies),
+		// which requires an explicit allow-credentials header for the browser
+		// to accept the cross-origin response.
+		credentials: true,
 	}),
 );
+
+await server.init();
 
 app.use(
 	"/trpc/*",

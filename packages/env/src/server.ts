@@ -4,7 +4,10 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    CORS_ORIGIN: z.url(),
+    // Comma-separated list of allowed origins, e.g. "http://localhost:3001,http://localhost:4111"
+    CORS_ORIGIN: z
+      .string()
+      .transform((value) => value.split(",").map((origin) => origin.trim()).filter(Boolean)),
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   },
   runtimeEnv: process.env,

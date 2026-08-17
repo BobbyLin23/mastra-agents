@@ -8,7 +8,7 @@
 		"compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
 		"dev": "tsx watch src/index.ts",
 		"start": "node dist/index.mjs",
-		"agent:studio": "mastra dev"
+		"agent:studio": "mastra studio -p 4111 --server-port 3000"
 	},
 	"dependencies": {
 		"@hono/node-server": "^2.0.12",

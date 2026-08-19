@@ -2,6 +2,7 @@ import { fileURLToPath } from "node:url";
 import { Mastra } from "@mastra/core/mastra";
 import { MastraCompositeStore } from "@mastra/core/storage";
 import { DuckDBStore } from "@mastra/duckdb";
+import { MastraEditor } from "@mastra/editor";
 import { LibSQLStore } from "@mastra/libsql";
 import { PinoLogger } from "@mastra/loggers";
 import {
@@ -10,13 +11,11 @@ import {
 	Observability,
 	SensitiveDataFilter,
 } from "@mastra/observability";
+import { researchAgent } from "./agents/research-agent";
+import { supervisor } from "./agents/supervisor";
 import { weatherAgent } from "./agents/weather-agent";
 import { weatherWorkflow } from "./workflows/weather-workflow";
 
-// Resolve storage files relative to this source file instead of process.cwd().
-// `mastra dev` and `mastra studio` run from different working directories
-// (e.g. `src/mastra/public`), and relative paths like "file:./mastra.db" would
-// otherwise split the database across several files per process.
 const storageFile = (name: string) =>
 	fileURLToPath(new URL(`../../${name}`, import.meta.url));
 const libsqlUrl = () => `file:${storageFile("mastra.db")}`;
@@ -24,7 +23,8 @@ const duckdbPath = () => storageFile("mastra.duckdb");
 
 export const mastra: Mastra = new Mastra({
 	workflows: { weatherWorkflow },
-	agents: { weatherAgent },
+	agents: { weatherAgent, supervisor, researchAgent },
+	editor: new MastraEditor(),
 	storage: new MastraCompositeStore({
 		id: "composite-storage",
 		default: new LibSQLStore({

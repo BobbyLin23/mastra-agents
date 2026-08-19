@@ -35,9 +35,21 @@ export const weatherTool = createTool({
 		conditions: z.string(),
 		location: z.string(),
 	}),
+	onInputAvailable: async ({ input, toolCallId }) => {
+		console.log(
+			`Weather requested for: ${input.location}, toolCallId: ${toolCallId}`,
+		);
+	},
 	execute: async (inputData, context) => {
-		context.mastra?.getLogger()?.info(`Fetching weather for ${inputData.location}`);
+		context.mastra
+			?.getLogger()
+			?.info(`Fetching weather for ${inputData.location}`);
 		return await getWeather(inputData.location);
+	},
+	onOutput: ({ output, toolName }) => {
+		console.log(
+			`${toolName} result: ${output.temperature}°C, ${output.conditions}`,
+		);
 	},
 });
 
